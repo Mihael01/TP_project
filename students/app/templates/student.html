@@ -1,5 +1,11 @@
 <!-- app/templates/student.html -->
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %}
     {% if add_student %}
@@ -27,3 +33,4 @@
   </div>
 </div>
 {% endblock %}
+</html>
