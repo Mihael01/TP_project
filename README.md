@@ -1,1 +1,12 @@
 # TP_project
+
+### requirements
+
+Students
+         - REST API for  CRUD operations(Student)
+         - UI for CRUD operations
+	       - Supprot for Marks (Add, calcualate the average etc.)
+         - Sort students by average mark
+         - Several Unit tests(i. .eTest for average mark calculations)
+         - Several automation tests using selenium
+         - Using git is mandatory 
