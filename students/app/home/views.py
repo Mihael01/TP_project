@@ -31,18 +31,25 @@ def add_student():
     if form.validate_on_submit():
         student = Student(first_name=form.first_name.data,
                     last_name=form.last_name.data,
-                    student_number=form.student_number.data,
-                    student_marks=form.student_marks.data)
+                    student_number=form.student_number.data)
 
         try:
             # add student to the database
             db.session.add(student)
             db.session.commit()
+            #create all marks for current student        
+            for mark in form.student_marks.data:
+                student_mark = Mark(mark, student.id)
+
+                # add student marks to the database
+                db.session.add(student_mark)
+                db.session.commit()
+
             flash('You have successfully added a new student.')
         except:
-            # in case student name already exists
-            flash('Error: student number ' + student.student_number +' already exists.')   
-
+            # in case student number already exists
+            flash('Error: student number ' + str(student.student_number) +' already exists.')  
+            
         # redirect to the students page
         return redirect(url_for('home.list_students'))
 
@@ -63,7 +70,7 @@ def edit_student(id):
         student.first_name=form.first_name.data
         student.last_name=form.last_name.data
         student.student_number=form.student_number.data
-        student.student_marks=form.student_marks.data
+
         db.session.add(student)
         db.session.commit()
         flash('You have successfully edited the student.')

@@ -19,7 +19,12 @@ class Student(db.Model):
                                 lazy='dynamic')
 
     def __repr__(self):
-        return '<Student: {}>'.format('N0 %i)' % (self.student_number))
+        return '<Student: {}>'.format('id %i)' % (self.id))
+
+    def __init__(self, first_name, last_name, student_number):
+		self.first_name = first_name
+		self.last_name = last_name
+		self.student_number = student_number
 
 class Mark(db.Model):
     """
@@ -29,8 +34,13 @@ class Mark(db.Model):
     __tablename__ = 'marks'
 
     id = db.Column(db.Integer, primary_key=True)
-    mark = db.Column(db.Integer, unique=True)
+    mark = db.Column(db.Integer)
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
 
     def __repr__(self):
         return '<Student: {}>'.format('Mark %i)' % (self.mark))
+
+    def __init__(self, mark, student_id):
+		self.mark = mark
+		self.student_id = student_id
+
