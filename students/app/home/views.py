@@ -1,4 +1,4 @@
-from ..forms import StudentForm
+from forms import StudentForm
 from ..models import Student, Mark
 from flask import Flask, render_template, flash, redirect, url_for
 
