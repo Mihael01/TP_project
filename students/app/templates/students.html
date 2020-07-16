@@ -1,7 +1,12 @@
 <!-- app/templates/students.html -->
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
 {% import "bootstrap/utils.html" as utils %}
-{% block title %}Students{% endblock %}
 {% block body %}
 <div class="content-section">
   <div class="outer">
@@ -19,15 +24,62 @@
                 <tr>
 		  <th> Student number </th>
                   <th> First Name </th>
-                  <th> First Name </th>                  
+                  <th> Last Name </th>
+                  <th colspan="5"> Marks </th>
+                  <th> Average Mark </th>
+                  <th> Edit </th>
+                  <th> Delete </th>
                 </tr>
               </thead>
               <tbody>
-              {% for student in students %}
+              {% for student in students|sort(attribute='average_mark', reverse=True) %}
                 <tr>
-		  <td style="width:20%" > {{ student.student_number }} </td>
-                  <td style="width:40%" > {{ student.first_name }} </td>
-                  <td style="width:40%" > {{ student.last_name }} </td>
+                  <td> {{ student.student_number }} </td>
+                  <td> {{ student.first_name }} </td>
+                  <td> {{ student.last_name }} </td>                  
+                  <td> 
+                  {% if student.student_marks[0] %}
+                  	{{student.student_marks[0].mark}} 
+                  {% else %}
+                    0
+                  {% endif %}
+                  </td>
+                  <td> 
+                  {% if student.student_marks[1] %}
+                  	{{student.student_marks[1].mark}} 
+                  {% else %}
+                    0
+                  {% endif %}
+                  </td>
+                  <td> 
+                  {% if student.student_marks[2] %}
+                  	{{student.student_marks[2].mark}} 
+                  {% else %}
+                    0
+                  {% endif %}
+                  </td>
+                  <td> 
+                  {% if student.student_marks[3] %}
+                  	{{student.student_marks[3].mark}} 
+                  {% else %}
+                    0
+                  {% endif %}
+                  </td>
+                  <td> 
+                  {% if student.student_marks[4] %}
+                  	{{student.student_marks[4].mark}} 
+                  {% else %}
+                    0
+                  {% endif %}
+                  </td>
+                  <td> {{student.average_mark}} </td>
+                  <td>                     
+                  	<a href="{{ url_for('home.edit_student', id=student.id) }}">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a> </td>
+                  <td> <a href="{{ url_for('home.delete_student', id=student.id) }}">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>  </td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -49,3 +101,4 @@
   </div>
 </div>
 {% endblock %}
+</html>
